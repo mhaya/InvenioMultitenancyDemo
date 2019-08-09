@@ -137,7 +137,7 @@ SESSION_COOKIE_SECURE = True
 #: provided, the allowed hosts variable is set to localhost. In production it
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
-APP_ALLOWED_HOSTS = ['my-site.com', 'localhost', '127.0.0.1']
+APP_ALLOWED_HOSTS = ['my-site.com', 'localhost', '127.0.0.1','a.example.org','b.example.org']
 
 # OAI-PMH
 # =======

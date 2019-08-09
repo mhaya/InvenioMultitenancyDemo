@@ -73,7 +73,7 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: ["uwsgi /opt/invenio/var/instance/uwsgi_rest.ini"]
+    command: ["uwsgi /opt/invenio/var/instance/emperor2.ini"]
     image: my-site
     ports:
       - "5001"

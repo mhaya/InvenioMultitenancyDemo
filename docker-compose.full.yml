@@ -57,7 +57,7 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: ["uwsgi /opt/invenio/var/instance/uwsgi_ui.ini"]
+    command: ["uwsgi /opt/invenio/var/instance/emperor.ini"]
     image: my-site
     ports:
       - "5000"

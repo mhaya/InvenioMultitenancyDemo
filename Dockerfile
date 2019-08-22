@@ -27,4 +27,8 @@ RUN pip install . && \
     invenio webpack install --unsafe && \
     invenio webpack build
 
+RUN cp -r /opt/invenio/var/instance /opt/invenio/var/instance2;chown -R invenio /opt/invenio/var/instance2;chmod -R 775  /opt/invenio/var/instance2
+COPY ./docker/uwsgi/wekoA.cfg /opt/invenio/var/instance/invenio.cfg
+COPY ./docker/uwsgi/wekoB.cfg /opt/invenio/var/instance2/invenio.cfg
+
 ENTRYPOINT [ "bash", "-c"]

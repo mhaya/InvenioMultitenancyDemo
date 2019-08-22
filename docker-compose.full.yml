@@ -49,6 +49,7 @@ services:
       service: frontend
     volumes:
       - static_data:/opt/invenio/var/instance/static
+      - static_data2:/opt/invenio/var/instance2/static
     links:
       - web-ui
       - web-api
@@ -63,6 +64,7 @@ services:
       - "5000"
     volumes:
       - static_data:/opt/invenio/var/instance/static
+      - static_data2:/opt/invenio/var/instance2/static
     links:
       - cache
       - es
@@ -79,6 +81,7 @@ services:
       - "5001"
     volumes:
       - static_data:/opt/invenio/var/instance/static
+      - static_data2:/opt/invenio/var/instance2/static
     links:
       - cache
       - es
@@ -133,3 +136,4 @@ services:
       service: es
 volumes:
   static_data:
+  static_data2:

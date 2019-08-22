@@ -17,8 +17,46 @@
 .. image:: https://img.shields.io/github/license/my-site/my-site.svg
         :target: https://github.com/my-site/my-site/blob/master/LICENSE
 
-Invenio digital library framework.
+This is multitenancy demo of Invenio3. 
 
-Further documentation is available on
-https://my-site.readthedocs.io/
+How to use
+==================
 
+1. Set up demonstration environment.
+
+```
+git clone -b feature/uwsgi_emperor https://github.com/mhaya/my-site.git
+cd my-site
+pipenv lock
+./docker/build-images.sh
+docker-compose -f docker-compose.full.yml up -d
+./docker/wait-for-services.sh --full
+docker-compose -f docker-compose.full.yml exec web-ui ./scripts/setup
+```
+
+2. Add following records in your hosts file.
+
+```
+127.0.0.1 a.example.org
+127.0.0.1 b.example.org
+```
+
+3. Access https://a.example.org and https://b.example.org. 
+
+4. Add example records into each instance.
+
+```
+curl -k --header "Content-Type: application/json" \
+--request POST \
+--data '{"title":"Some title", "contributors": [{"name": "Doe, John"}]}' \
+https://a.example.org/api/records/?prettyprint=1
+```
+
+```
+curl -k --header "Content-Type: application/json" \
+--request POST \
+--data '{"title":"Some title2", "contributors": [{"name": "Doe, John"}]}' \
+https://b.example.org/api/records/?prettyprint=1
+```
+
+5. Check Added records on each instance.

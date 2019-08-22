@@ -18,33 +18,27 @@
         :target: https://github.com/my-site/my-site/blob/master/LICENSE
 
 This is multitenancy demo of Invenio3. 
+This demo uses uWSGI emperor mode and Nginx virtual host and SEARCH_INDEX_PREFIX config.
 
 How to use
 ==================
 
-1. Set up demonstration environment.
+1. Set up demonstration environment. ::
+
+        git clone -b feature/uwsgi_emperor https://github.com/mhaya/my-site.git
+        cd my-site
+        pipenv lock
+        ./docker/build-images.sh
+        docker-compose -f docker-compose.full.yml up -d
+        ./docker/wait-for-services.sh --full
+        docker-compose -f docker-compose.full.yml exec web-ui ./scripts/setup
+
+2. Add following records in your hosts file. ::
+
+        127.0.0.1 a.example.org
+        127.0.0.1 b.example.org
 
 
-```
-
-git clone -b feature/uwsgi_emperor https://github.com/mhaya/my-site.git
-cd my-site
-pipenv lock
-./docker/build-images.sh
-docker-compose -f docker-compose.full.yml up -d
-./docker/wait-for-services.sh --full
-docker-compose -f docker-compose.full.yml exec web-ui ./scripts/setup
-
-```
-
-2. Add following records in your hosts file.
-
-```
-
-127.0.0.1 a.example.org
-127.0.0.1 b.example.org
-
-```
 
 3. Access https://a.example.org and https://b.example.org. 
 
@@ -64,4 +58,5 @@ docker-compose -f docker-compose.full.yml exec web-ui ./scripts/setup
 
 
 5. Check Added records on each instance.
+
 

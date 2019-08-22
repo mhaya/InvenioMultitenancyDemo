@@ -49,6 +49,7 @@ services:
       service: frontend
     volumes:
       - static_data:/opt/invenio/var/instance/static
+      - static_data2:/opt/invenio/var/instance2/static
     links:
       - web-ui
       - web-api
@@ -57,12 +58,13 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: ["uwsgi /opt/invenio/var/instance/uwsgi_ui.ini"]
+    command: ["uwsgi /opt/invenio/var/instance/emperor.ini"]
     image: my-site
     ports:
       - "5000"
     volumes:
       - static_data:/opt/invenio/var/instance/static
+      - static_data2:/opt/invenio/var/instance2/static
     links:
       - cache
       - es
@@ -73,12 +75,13 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: ["uwsgi /opt/invenio/var/instance/uwsgi_rest.ini"]
+    command: ["uwsgi /opt/invenio/var/instance/emperor2.ini"]
     image: my-site
     ports:
       - "5001"
     volumes:
       - static_data:/opt/invenio/var/instance/static
+      - static_data2:/opt/invenio/var/instance2/static
     links:
       - cache
       - es
@@ -133,3 +136,4 @@ services:
       service: es
 volumes:
   static_data:
+  static_data2:

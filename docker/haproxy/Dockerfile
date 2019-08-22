@@ -5,7 +5,10 @@
 # My site is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-FROM haproxy:1.8
+FROM haproxy:1.9
 RUN mkdir -p /usr/local/var/lib/haproxy/
 COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
 COPY haproxy_cert.pem /usr/local/etc/cert.pem
+COPY a.pem /usr/local/etc/a.pem 
+COPY a.pem /usr/local/etc/a.pem 
+

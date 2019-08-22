@@ -5,7 +5,7 @@
     under the terms of the MIT License; see LICENSE file for more details.
 
 =========
- My site
+ Multitenancy demo of Invenio3
 =========
 
 .. image:: https://img.shields.io/travis/my-site/my-site.svg
@@ -25,7 +25,7 @@ How to use
 
 1. Set up demonstration environment. ::
 
-        git clone -b feature/uwsgi_emperor https://github.com/mhaya/my-site.git
+        git clone https://github.com/mhaya/my-site.git
         cd my-site
         pipenv lock
         ./docker/build-images.sh

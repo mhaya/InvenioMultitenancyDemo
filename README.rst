@@ -18,7 +18,7 @@
         :target: https://github.com/my-site/my-site/blob/master/LICENSE
 
 This is multitenancy demo of Invenio3. 
-This demo uses uWSGI emperor mode and Nginx virtual host and SEARCH_INDEX_PREFIX config.
+This demo uses uWSGI emperor mode and Nginx virtual host and SEARCH_INDEX_PREFIX config of InvenioSearch.
 
 How to use
 ==================

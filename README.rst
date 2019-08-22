@@ -25,8 +25,8 @@ How to use
 
 1. Set up demonstration environment. ::
 
-        git clone https://github.com/mhaya/my-site.git
-        cd my-site
+        git clone https://github.com/mhaya/InvenioMultitenancyDemo.git
+        cd InvenioMultitenancyDemo
         pipenv lock
         ./docker/build-images.sh
         docker-compose -f docker-compose.full.yml up -d

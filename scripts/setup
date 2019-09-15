@@ -25,18 +25,18 @@ pipenv run invenio roles add info@inveniosoftware.org admin
 
 
 # Clean redis
-pipenv run env INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2 invenio shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
-pipenv run env INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2 env INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://my-site:my-site@db/my-site2 invenio db destroy --yes-i-know
-pipenv run env INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2 env INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://my-site:my-site@db/my-site2 invenio db init create
-pipenv run env INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2 invenio index destroy --force --yes-i-know
-pipenv run env INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2 invenio index init --force
-pipenv run env INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2 invenio index queue init purge
+export INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2; pipenv run  invenio shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
+export INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2; pipenv run invenio db destroy --yes-i-know
+export INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2; pipenv run invenio db init create
+export INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2; pipenv run invenio index destroy --force --yes-i-know
+export INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2; pipenv run invenio index init --force
+export INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2; pipenv run invenio index queue init purge
 
 # Create admin role to rectict access
-pipenv run env INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2 env INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://my-site:my-site@db/my-site2 invenio roles create admin
-pipenv run env INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2 env INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://my-site:my-site@db/my-site2 invenio access allow superuser-access role admin
-pipenv run env INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2 env INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://my-site:my-site@db/my-site2 invenio users create info@inveniosoftware.org --password uspass123 -a
-pipenv run env INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2 env INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://my-site:my-site@db/my-site2 invenio roles add info@inveniosoftware.org admin
+export INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2; pipenv run invenio roles create admin
+export INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2; pipenv run invenio access allow superuser-access role admin
+export INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2; pipenv run invenio users create info@inveniosoftware.org --password uspass123 -a
+export INVENIO_INSTANCE_PATH=/opt/invenio/var/instance2; pipenv run invenio roles add info@inveniosoftware.org admin
 
 
 

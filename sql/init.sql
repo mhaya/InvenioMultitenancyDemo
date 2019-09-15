@@ -1,0 +1,2 @@
+CREATE DATABASE "my-site2";
+GRANT ALL PRIVILEGES ON DATABASE "my-site2" TO "my-site";

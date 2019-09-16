@@ -53,18 +53,32 @@ services:
     links:
       - web-ui
       - web-api
+      - web-ui2
+      - web-api2
   # UI Application
   web-ui:
     extends:
       file: docker-services.yml
       service: app
-    command: ["uwsgi /opt/invenio/var/instance/emperor.ini"]
+    command: ["jinja2 scripts/instance.cfg > /opt/invenio/var/instance/invenio.cfg ;uwsgi /opt/invenio/var/instance/uwsgi_ui.ini"]
     image: my-site
+    environment:
+      - "INVENIO_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1"
+      - "INVENIO_BROKER_URL=amqp://guest:guest@mq:5672/"
+      - "INVENIO_CACHE_REDIS_URL=redis://cache:6379/0"
+      - "INVENIO_CACHE_TYPE=redis"
+      - "INVENIO_CELERY_BROKER_URL=amqp://guest:guest@mq:5672/"
+      - "INVENIO_CELERY_RESULT_BACKEND=redis://cache:6379/2"
+      - "INVENIO_SEARCH_ELASTIC_HOSTS=['es:9200']"
+      - "INVENIO_SECRET_KEY=CHANGE_ME"
+      - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://my-site:my-site@db/my-site"
+      - "INVENIO_WSGI_PROXIES=2"
+      - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
+      - "SEARCH_INDEX_PREFIX=tenant1"
     ports:
       - "5000"
     volumes:
       - static_data:/opt/invenio/var/instance/static
-      - static_data2:/opt/invenio/var/instance2/static
     links:
       - cache
       - es
@@ -75,13 +89,83 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: ["uwsgi /opt/invenio/var/instance/emperor2.ini"]
+    command: ["jinja2 scripts/instance.cfg > /opt/invenio/var/instance/invenio.cfg ; uwsgi /opt/invenio/var/instance/uwsgi_rest.ini"]
     image: my-site
+    environment:
+      - "INVENIO_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1"
+      - "INVENIO_BROKER_URL=amqp://guest:guest@mq:5672/"
+      - "INVENIO_CACHE_REDIS_URL=redis://cache:6379/0"
+      - "INVENIO_CACHE_TYPE=redis"
+      - "INVENIO_CELERY_BROKER_URL=amqp://guest:guest@mq:5672/"
+      - "INVENIO_CELERY_RESULT_BACKEND=redis://cache:6379/2"
+      - "INVENIO_SEARCH_ELASTIC_HOSTS=['es:9200']"
+      - "INVENIO_SECRET_KEY=CHANGE_ME"
+      - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://my-site:my-site@db/my-site"
+      - "INVENIO_WSGI_PROXIES=2"
+      - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
+      - "SEARCH_INDEX_PREFIX=tenant1"
     ports:
       - "5001"
     volumes:
       - static_data:/opt/invenio/var/instance/static
-      - static_data2:/opt/invenio/var/instance2/static
+    links:
+      - cache
+      - es
+      - mq
+      - db
+  # UI Application
+  web-ui2:
+    extends:
+      file: docker-services.yml
+      service: app
+    command: ["jinja2 /opt/invenio/src/scripts/instance2.cfg > /opt/invenio/var/instance/invenio.cfg ; uwsgi /opt/invenio/var/instance/uwsgi_ui.ini"]
+    image: my-site
+    environment:
+      - "INVENIO_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1"
+      - "INVENIO_BROKER_URL=amqp://guest:guest@mq:5672/"
+      - "INVENIO_CACHE_REDIS_URL=redis://cache:6379/0"
+      - "INVENIO_CACHE_TYPE=redis"
+      - "INVENIO_CELERY_BROKER_URL=amqp://guest:guest@mq:5672/"
+      - "INVENIO_CELERY_RESULT_BACKEND=redis://cache:6379/2"
+      - "INVENIO_SEARCH_ELASTIC_HOSTS=['es:9200']"
+      - "INVENIO_SECRET_KEY=CHANGE_ME"
+      - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://my-site:my-site@db/my-site2"
+      - "INVENIO_WSGI_PROXIES=2"
+      - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
+      - "SEARCH_INDEX_PREFIX=tenant2"
+    ports:
+      - "5000"
+    volumes:
+      - static_data2:/opt/invenio/var/instance/static
+    links:
+      - cache
+      - es
+      - mq
+      - db
+  # API Rest Application
+  web-api2:
+    extends:
+      file: docker-services.yml
+      service: app
+    command: ["jinja2 scripts/instance2.cfg > /opt/invenio/var/instance/invenio.cfg ; uwsgi /opt/invenio/var/instance/uwsgi_rest.ini"]
+    image: my-site
+    environment:
+      - "INVENIO_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1"
+      - "INVENIO_BROKER_URL=amqp://guest:guest@mq:5672/"
+      - "INVENIO_CACHE_REDIS_URL=redis://cache:6379/0"
+      - "INVENIO_CACHE_TYPE=redis"
+      - "INVENIO_CELERY_BROKER_URL=amqp://guest:guest@mq:5672/"
+      - "INVENIO_CELERY_RESULT_BACKEND=redis://cache:6379/2"
+      - "INVENIO_SEARCH_ELASTIC_HOSTS=['es:9200']"
+      - "INVENIO_SECRET_KEY=CHANGE_ME"
+      - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://my-site:my-site@db/my-site2"
+      - "INVENIO_WSGI_PROXIES=2"
+      - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
+      - "SEARCH_INDEX_PREFIX=tenant2"
+    ports:
+      - "5001"
+    volumes:
+      - static_data2:/opt/invenio/var/instance/static
     links:
       - cache
       - es

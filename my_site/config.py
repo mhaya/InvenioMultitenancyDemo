@@ -17,6 +17,8 @@ from __future__ import absolute_import, print_function
 
 from datetime import timedelta
 
+import os
+
 def _(x):
     """Identity function used to trigger string extraction."""
     return x
@@ -149,5 +151,4 @@ OAISERVER_ID_PREFIX = 'oai:my-site.com:'
 
 #: Switches off incept of redirects by Flask-DebugToolbar.
 DEBUG_TB_INTERCEPT_REDIRECTS = False
-
 

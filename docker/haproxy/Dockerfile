@@ -10,5 +10,5 @@ RUN mkdir -p /usr/local/var/lib/haproxy/
 COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
 COPY haproxy_cert.pem /usr/local/etc/cert.pem
 COPY a.pem /usr/local/etc/a.pem 
-COPY a.pem /usr/local/etc/a.pem 
+COPY b.pem /usr/local/etc/b.pem 
 

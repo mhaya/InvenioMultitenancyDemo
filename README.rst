@@ -32,6 +32,7 @@ How to use
         docker-compose -f docker-compose.full.yml up -d
         ./docker/wait-for-services.sh --full
         docker-compose -f docker-compose.full.yml exec web-ui ./scripts/setup
+        docker-compose -f docker-compose.full.yml exec web-ui2 ./scripts/setup
 
 2. Add following records in your hosts file. ::
 
